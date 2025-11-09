@@ -168,12 +168,8 @@ export async function startHttpServer(mainWindow: BrowserWindow): Promise<() => 
   const server: Server = await new Promise((resolve, reject) => {
     const srv = https.createServer({ cert, key }, app);
 
-    srv.listen(2121, '127.0.0.1', () => {
-      console.log('HTTPS server listening on https://127.0.0.1:2121');
-      app.listen(3321, '127.0.0.1', () => {
-        console.log('HTTP server listening on http://127.0.0.1:3321');
-        resolve(srv);
-      })
+    srv.listen(3321, '0.0.0.0', () => {
+      console.log('HTTPS server listening on https://127.0.0.1:3321');
     });
 
     srv.on('error', (error: NodeJS.ErrnoException) => {
